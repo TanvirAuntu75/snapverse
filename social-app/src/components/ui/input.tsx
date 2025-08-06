@@ -7,16 +7,17 @@ export interface InputProps
   label?: string
   error?: string
   icon?: React.ReactNode
+  multiline?: boolean
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, label, error, icon, ...props }, ref) => {
+  ({ className, type, label, error, icon, multiline = false, ...props }, ref) => {
     const [focused, setFocused] = React.useState(false)
     const [hasValue, setHasValue] = React.useState(false)
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       setHasValue(e.target.value.length > 0)
-      props.onChange?.(e)
+      props.onChange?.(e as any)
     }
 
     return (
@@ -28,23 +29,42 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             </div>
           )}
           
-          <motion.input
-            type={type}
-            className={cn(
-              "flex h-12 w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200",
-              icon && "pl-10",
-              label && "pt-6",
-              error && "border-red-500 focus-visible:ring-red-500",
-              className
-            )}
-            ref={ref}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            onChange={handleChange}
-            whileFocus={{ scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            {...props}
-          />
+          {multiline ? (
+            <motion.textarea
+              className={cn(
+                "flex min-h-12 w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200 resize-none",
+                icon && "pl-10",
+                label && "pt-6",
+                error && "border-red-500 focus-visible:ring-red-500",
+                className
+              )}
+              ref={ref as any}
+              onFocus={() => setFocused(true)}
+              onBlur={() => setFocused(false)}
+              onChange={handleChange}
+              whileFocus={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              {...(props as any)}
+            />
+          ) : (
+            <motion.input
+              type={type}
+              className={cn(
+                "flex h-12 w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200",
+                icon && "pl-10",
+                label && "pt-6",
+                error && "border-red-500 focus-visible:ring-red-500",
+                className
+              )}
+              ref={ref}
+              onFocus={() => setFocused(true)}
+              onBlur={() => setFocused(false)}
+              onChange={handleChange}
+              whileFocus={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              {...props}
+            />
+          )}
 
           {label && (
             <motion.label

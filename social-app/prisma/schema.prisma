@@ -48,6 +48,7 @@ model User {
   private         Boolean   @default(false)
   twoFactorEnabled Boolean  @default(false)
   twoFactorSecret String?
+  password        String?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 
