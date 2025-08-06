@@ -42,7 +42,7 @@ export function MobileNavigation() {
     <>
       {/* Bottom Navigation Bar */}
       <motion.div
-        className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-lg border-t border-gray-200 z-40"
+        className="fixed bottom-0 left-0 right-0 glass-strong border-t border-white/20 z-40"
         initial={{ y: 100 }}
         animate={{ y: 0 }}
         transition={{ type: "spring", stiffness: 400, damping: 30 }}
@@ -68,7 +68,7 @@ export function MobileNavigation() {
                     </div>
                     {isActive && (
                       <motion.div
-                        className="w-1 h-1 bg-purple-500 rounded-full mt-1"
+                        className="w-1 h-1 bg-blue-400 rounded-full mt-1"
                         layoutId="mobileIndicator"
                       />
                     )}
@@ -86,15 +86,15 @@ export function MobileNavigation() {
                 >
                   <Icon
                     className={`w-6 h-6 ${
-                      isActive ? 'text-purple-600' : 'text-gray-600'
+                      isActive ? 'text-blue-400' : 'text-white/70'
                     }`}
                   />
-                  {isActive && (
-                    <motion.div
-                      className="w-1 h-1 bg-purple-500 rounded-full mt-1"
-                      layoutId="mobileIndicator"
-                    />
-                  )}
+                                      {isActive && (
+                      <motion.div
+                        className="w-1 h-1 bg-blue-400 rounded-full mt-1"
+                        layoutId="mobileIndicator"
+                      />
+                    )}
                 </motion.div>
               </Link>
             )
@@ -106,7 +106,7 @@ export function MobileNavigation() {
             className="flex flex-col items-center py-2 px-3 rounded-xl"
             whileTap={{ scale: 0.95 }}
           >
-            <Menu className="w-6 h-6 text-gray-600" />
+            <Menu className="w-6 h-6 text-white/70" />
           </motion.button>
         </div>
       </motion.div>
@@ -126,7 +126,7 @@ export function MobileNavigation() {
 
             {/* Menu Content */}
             <motion.div
-              className="fixed inset-x-4 top-20 bottom-20 bg-white/95 backdrop-blur-xl rounded-3xl z-50 overflow-hidden"
+              className="fixed inset-x-4 top-20 bottom-20 glass-strong rounded-3xl z-50 overflow-hidden"
               initial={{ scale: 0.8, opacity: 0, y: 50 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.8, opacity: 0, y: 50 }}
@@ -134,8 +134,8 @@ export function MobileNavigation() {
             >
               {/* Header */}
               <div className="flex items-center justify-between p-6 border-b border-gray-200">
-                <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                  SocialApp
+                <h2 className="text-2xl font-bold gradient-text text-shadow">
+                  SnapVerse
                 </h2>
                 <motion.button
                   onClick={() => setShowMenu(false)}

@@ -33,7 +33,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#6366f1" />
         <link rel="manifest" href="/manifest.json" />
       </head>
-      <body className={`${inter.className} bg-gray-50 dark:bg-gray-900 overflow-x-hidden`}>
+      <body className={`${inter.className} overflow-x-hidden`}>
         <SessionProvider>
           <div className="flex min-h-screen">
             {/* Desktop Sidebar */}

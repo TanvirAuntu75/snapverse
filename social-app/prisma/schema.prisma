@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -13,12 +13,12 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -83,11 +83,11 @@ model Post {
   id          String   @id @default(cuid())
   caption     String?
   location    String?
-  mediaUrls   String[]
-  mediaTypes  String[]
+  mediaUrls   String // JSON string
+  mediaTypes  String // JSON string
   aspectRatio Float?
-  tags        String[]
-  mentions    String[]
+  tags        String? // JSON string
+  mentions    String? // JSON string
   isArchived  Boolean  @default(false)
   commentsEnabled Boolean @default(true)
   likesHidden Boolean  @default(false)
